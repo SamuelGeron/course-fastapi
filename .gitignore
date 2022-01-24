@@ -1,0 +1,5 @@
+# List here all files and folders that git should not commit
+
+__pycache__/
+app/__pycache__/
+fastapi-venv/
