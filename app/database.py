@@ -1,13 +1,13 @@
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-
+from .config import settings
 
 SQLALCHEMY_DATABASE_URL = 'mysql+mysqlconnector://{user}:{pw}@{host}/{db}'.format(
-    host='localhost',
-    user='root',
-    pw='root',
-    db='fastapi'
+    host=settings.database_hostname,
+    user=settings.database_username,
+    pw=settings.database_password,
+    db=settings.database_name
 )
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
@@ -21,3 +21,20 @@ def get_db():
         yield db
     finally:
         db.close()
+
+
+# while True:
+#     try:
+#         conn = mysql.connector.connect(
+#             host="localhost",
+#             user="root",
+#             password="root",
+#             database='fastapi'
+#         )
+#         cursor = conn.cursor(dictionary=True)
+#         print("Database connection was succesfull!")
+#         break
+#     except Exception as error:
+#         print("Connecting to database failed")
+#         print("Errror: ", error)
+#         time.sleep(2)
