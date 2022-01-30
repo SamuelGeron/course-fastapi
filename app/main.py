@@ -28,7 +28,7 @@ app.add_middleware(
 # GET ROOT
 @app.get("/")
 async def root():
-    return {"message": "Welcome to my API BRO"}
+    return {"message": "Welcome to my API in HEROKU"}
 
 app.include_router(post.router)
 app.include_router(user.router)
