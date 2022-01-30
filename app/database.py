@@ -3,12 +3,16 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from .config import settings
 
-SQLALCHEMY_DATABASE_URL = 'mysql+mysqlconnector://{user}:{pw}@{host}/{db}'.format(
-    host=settings.database_hostname,
-    user=settings.database_username,
-    pw=settings.database_password,
-    db=settings.database_name
-)
+# LOCAL - MYSQL
+# SQLALCHEMY_DATABASE_URL = 'mysql+mysqlconnector://{user}:{pw}@{host}/{db}'.format(
+#     host=settings.database_hostname,
+#     user=settings.database_username,
+#     pw=settings.database_password,
+#     db=settings.database_name
+# )
+
+# HEROKU - POSTGRES
+SQLALCHEMY_DATABASE_URL = f'postgresql://{settings.database_username}:{settings.database_password}@{settings.database_hostname}:{settings.database_port}/{settings.database_name}'
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
