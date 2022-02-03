@@ -3,6 +3,11 @@ from tracemalloc import start
 import pytest
 from app.calculations import add, subtract, multiply, divide, BankAccount, InsufficientFunds
 
+# Pytest
+# pytest -v For verbose
+# pytest -v -s Verbose and Print info
+# pytest -v -x stops whenever fails a test
+
 # Fixtures allways at the top
 @pytest.fixture
 def zero_bank_account():
