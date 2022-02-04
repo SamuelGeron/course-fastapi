@@ -27,7 +27,7 @@ jobs:
           MYSQL_PASSWORD: ${{secrets.DATABASE_PASSWORD}}
           MYSQL_DATABASE: ${{secrets.DATABASE_NAME}}_test
         ports:
-          - ${{secrets.DATABASE_PORT}}
+          - 3306
         options: >-
           --health-cmd="mysqladmin ping" 
           --health-interval=10s 
