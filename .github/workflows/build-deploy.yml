@@ -22,17 +22,17 @@ jobs:
       ACCESS_TOKEN_EXPIRE_MINUTES: 30
     services:
       mysql:
-        image: mysql
+        image: mysql:8.0.21
         env:
           MYSQL_PASSWORD: ${{secrets.DATABASE_PASSWORD}}
           MYSQL_DATABASE: ${{secrets.DATABASE_NAME}}_test
         ports:
-          - 3306
+          - 3306:3306
         options: >-
-          --health-cmd="mysqladmin ping" 
-          --health-interval=10s 
-          --health-timeout=5s 
-          --health-retries=3
+          --health-cmd "mysqladmin ping" 
+          --health-interval 10s 
+          --health-timeout 5s 
+          --health-retries 5
     runs-on: ubuntu-latest
     steps:
       - name: pulling git repo
