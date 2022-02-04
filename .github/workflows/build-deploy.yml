@@ -20,20 +20,24 @@ jobs:
       SECRET_KEY: ${{secrets.SECRET_KEY}}
       ALGORITHM: ${{secrets.ALGORITHM}}
       ACCESS_TOKEN_EXPIRE_MINUTES: 30
-    services:
-      mysql:
-        image: mysql:latest
-        env:
-          MYSQL_HOST: ${{secrets.DATABASE_HOSTNAME}}
-          MYSQL_USER: ${{secrets.DATABASE_USERNAME}}
-          MYSQL_PASSWORD: ${{secrets.DATABASE_PASSWORD}}
-          MYSQL_DATABASE: ${{secrets.DATABASE_NAME}}_test
-          MYSQL_ROOT_PASSWORD: ${{secrets.DATABASE_PASSWORD}}
-        ports:
-          - 3306:3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+    # services:
+    #   mysql:
+    #     image: mysql:latest
+    #     env:
+    #       MYSQL_HOST: ${{secrets.DATABASE_HOSTNAME}}
+    #       MYSQL_USER: ${{secrets.DATABASE_USERNAME}}
+    #       MYSQL_PASSWORD: ${{secrets.DATABASE_PASSWORD}}
+    #       MYSQL_DATABASE: ${{secrets.DATABASE_NAME}}_test
+    #       MYSQL_ROOT_PASSWORD: ${{secrets.DATABASE_PASSWORD}}
+    #     ports:
+    #       - 3306:3306
+    #     options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     runs-on: ubuntu-latest
     steps:
+      - name: set up MySQL
+        run: |
+          sudo /etc/init.d/mysql start
+          mysql -e 'CREATE DATABASE ${{secrets.DATABASE_NAME}};' -u${{secrets.DATABASE_USERNAME}} -p${{secrets.DATABASE_PASSWORD}}
       - name: pulling git repo
         uses: actions/checkout@v2
       - name: installing python v3.9
